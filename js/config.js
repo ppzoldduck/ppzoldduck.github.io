@@ -1,0 +1,5 @@
+export const CONFIG = {
+  DRAW_THRESHOLD: 0.05,
+  LINE_WIDTH: 5,
+  DEFAULT_COLOR: "#ff0000"
+};
