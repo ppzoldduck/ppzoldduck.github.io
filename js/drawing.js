@@ -9,6 +9,7 @@ export class DrawingBoard {
     this.canvas.height = window.innerHeight;
 
     this.drawing = false;
+    this.hasActivePathPoint = false;
     this.color = CONFIG.DEFAULT_COLOR;
   }
 
@@ -21,11 +22,16 @@ export class DrawingBoard {
   }
 
   start() {
+    if (!this.drawing) {
+      this.ctx.beginPath();
+      this.hasActivePathPoint = false;
+    }
     this.drawing = true;
   }
 
   stop() {
     this.drawing = false;
+    this.hasActivePathPoint = false;
     this.ctx.beginPath();
   }
 
@@ -35,6 +41,12 @@ export class DrawingBoard {
     this.ctx.lineWidth = CONFIG.LINE_WIDTH;
     this.ctx.lineCap = "round";
     this.ctx.strokeStyle = this.color;
+
+    if (!this.hasActivePathPoint) {
+      this.ctx.moveTo(x, y);
+      this.hasActivePathPoint = true;
+      return;
+    }
 
     this.ctx.lineTo(x, y);
     this.ctx.stroke();
