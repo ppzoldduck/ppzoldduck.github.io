@@ -1,4 +1,8 @@
 export function createHandTracker(onResults) {
+  if (typeof Hands === "undefined") {
+    throw new Error("MediaPipe Hands is not loaded.");
+  }
+
   const hands = new Hands({
     locateFile: (file) =>
       `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`

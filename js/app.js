@@ -11,12 +11,13 @@ const board = new DrawingBoard(canvas);
 initUI(board);
 
 const hands = createHandTracker((results) => {
-  if (results.multiHandLandmarks.length === 0) {
+  const handLandmarks = results?.multiHandLandmarks;
+  if (!Array.isArray(handLandmarks) || handLandmarks.length === 0) {
     board.stop();
     return;
   }
 
-  const landmarks = results.multiHandLandmarks[0];
+  const landmarks = handLandmarks[0];
   const indexFinger = landmarks[8];
 
   const x = indexFinger.x * canvas.width;
